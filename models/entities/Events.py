@@ -11,4 +11,10 @@ class Events:
     def houre(self,date):
 
         pass
+
+    
+    """ description of event """ 
+    def __repr__(self): 
+
+        return "Event: title({}), date{}), description({})".format(self.title, self.date, self.description)
     
