@@ -10,7 +10,7 @@
     * Deux événements ne peuvent pas avoir lieu le même jour à la même heure
     * Un événement est composé obligatoirement d'un titre, d'une date, d'une heure et éventuellement d'une description
 
-* Functional Specifications
+* Functional Specifications :
     * The home page displays today's date and calendar for the current month
     * User can see calendar for next month and previous month
     * User can see all events on a specific date - User can cancel (delete) an event
