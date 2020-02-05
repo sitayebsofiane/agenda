@@ -14,7 +14,7 @@ class Model:
         except(Exception ,psycopg2.Error):
             print("erreur while connecting to postgresSQL")
 
-    def all_events(self):
+    def get_all_events(self):
       self.curseur=self.con.cursor()
       self.curseur.execute("""SELECT e.title,e.date,e.description,r.role_name,r.role_description,u.name FROM events AS e JOIN user_agenda AS u
                                 ON u.id_user=e.id_user JOIN roles AS r ON r.id_role=e.id_role;""")
