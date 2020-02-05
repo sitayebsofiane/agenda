@@ -14,19 +14,25 @@ class Model:
             print("erreur while connecting to postgresSQL")
 
 
-    """ authentification of user """
+    """ if user has authentificat this method return id_user and id_role """
     def authentification(self,name,first_name,password):
        autorised = False
+       id_role=None
        password = hashlib.sha1(password.encode()).hexdigest()
        self.curseur=self.con.cursor()
-       self.curseur.execute("SELECT name,first_name,password FROM user_agenda;")
+       self.curseur.execute("SELECT id_user,name,first_name,password FROM user_agenda;")
        rows=self.curseur.fetchall()
        for row in rows:
-           if row[0]==name and row[1]==first_name and row[2]==password:
+           if row[1]==name and row[2]==first_name and row[3]==password:
                autorised = True
+               id_user=row[0]
+               self.curseur.execute("SELECT id_role FROM user_role where id_user=%s;",(id_user,))
+               id_role=self.curseur.fetchone()
                break
        self.curseur.close()
-       return autorised
+       if id_role is not None:
+           return autorised,id_user,id_role[0]
+       return False,
 
     """ create count user_agenda """
     def creation_count_user(self,name,firstname,password):
@@ -80,7 +86,8 @@ class Model:
     def get_all_events_by_admin(self):
       self.curseur=self.con.cursor()
       self.curseur.execute("""SELECT e.title,e.date,e.description,r.role_name,r.role_description,u.name FROM events AS e JOIN user_agenda AS u
-                                ON u.id_user=e.id_user JOIN roles AS r ON r.id_role=e.id_role;""")
+                                ON u.id_user=e.id_user JOIN user_role AS ur ON ur.id_user=u.id_user JOIN
+								roles AS r ON ur.id_role=r.id_role;""")
       rows=self.curseur.fetchall()
       self.curseur.close()
       return rows
@@ -89,7 +96,8 @@ class Model:
     def get_all_events(self):
       self.curseur=self.con.cursor()
       self.curseur.execute("""SELECT e.title,e.date,r.role_name,u.name FROM events AS e JOIN user_agenda AS u
-                                ON u.id_user=e.id_user JOIN roles AS r ON r.id_role=e.id_role;""")
+                                ON u.id_user=e.id_user JOIN user_role AS ur ON ur.id_user=u.id_user JOIN
+								roles AS r ON ur.id_role=r.id_role;""")
       rows=self.curseur.fetchall()
       self.curseur.close()
       return rows
