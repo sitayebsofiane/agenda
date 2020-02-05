@@ -22,4 +22,4 @@ class Controller:
 
         auth=self.login()
         if auth[0]:
-            self.model.post_event(auth[1],auth[2],input('title: '),datetime.date.today(),input('description: '))
+            self.model.post_event(auth[1],auth[2],input('title: '),datetime.datetime.today(),input('description: '))

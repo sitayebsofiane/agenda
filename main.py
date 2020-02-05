@@ -6,8 +6,8 @@ import datetime
 model=Model()
 view=View(model)
 controller=Controller(model,view)
-view.display_all_informations_events()
-
+view.display_all_events()
+controller.add_event()
 
 """
 #-----------------------------
