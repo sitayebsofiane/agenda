@@ -1,11 +1,12 @@
 
-"""
+
 from views.view import View
 from models.Model import Model
 
 model=Model()
 v=View(model)
 v.display_all_events()
+print(model.authentification("harlain","bruno",'bruno'))
 """
 #-----------------------------
 
@@ -28,3 +29,4 @@ while verrouille:
         print("Mot de passe incorrect")
 
 print("Mot de passe accepté...")
+"""

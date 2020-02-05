@@ -16,18 +16,18 @@ class Model:
 
 
     """ authentification of user """
-   def authentification(self,name,first_name,password):
-      autorised=False
-      password = password.encode()
-      self.curseur=self.con.cursor()
-      self.curseur.execute("SELECT name,first_name,password FROM user_agenda;")
-      rows=self.curseur.fetchall()
-      for row in rows:
-         if row[0]==name and row[1]==first_name and row[2]==password:
-            emira=True
-            break
-      self.curseur.close()
-      return autorised
+    def authentification(self,name,first_name,password):
+       autorised = False
+       password = hashlib.sha1(password.encode()).hexdigest()
+       self.curseur=self.con.cursor()
+       self.curseur.execute("SELECT name,first_name,password FROM user_agenda;")
+       rows=self.curseur.fetchall()
+       for row in rows:
+           if row[0]==name and row[1]==first_name and row[2]==password:
+               autorised = True
+               break
+       self.curseur.close()
+       return autorised
 
 
     def get_all_events(self):
