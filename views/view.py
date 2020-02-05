@@ -4,11 +4,17 @@ import datetime
 import time
 
 class View:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
-    def __init__(self,model,controller):
-
+    def __init__(self,model):
         self.model=model
-        self.controller=controller
 
 
     """  The home page displays today's date and calendar for the current month """
@@ -47,5 +53,11 @@ class View:
     
     """  User can see all events on a specific date - User can cancel (delete) an event """
     def display_all_events(self):
-        pass
+
+        print(" voici la liste des post et de leurs auteur: ")
+        for r in self.model.all_messages():
+            print(View.HEADER + "-----------------------------------------------------------------------------------------" )
+            print(f"nom: {r[0]} | prenom: {r[1]} | contenu: {r[2]} | date: {r[3]}")
+            print(View.BOLD+ "----------------------------------------------------------------------------------------" )
+    
 

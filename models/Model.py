@@ -16,7 +16,8 @@ class Model:
 
     def all_events(self):
       self.curseur=self.con.cursor()
-      self.curseur.execute("""SELECT e.title,e.date,e.description FROM events AS e JOIN messages AS m ON u.id=m.id_auteur;""")
+      self.curseur.execute("""SELECT e.title,e.date,e.description,r.role_name,r.role_description,u.name FROM events AS e JOIN user_agenda AS u
+                                ON u.id_user=e.id_user JOIN roles AS r ON r.id_role=e.id_role;""")
       rows=self.curseur.fetchall()
       self.curseur.close()
       return rows

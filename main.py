@@ -1,6 +1,8 @@
 from views.view import View
+from model.Model import Model
 
-v=View(5,2)
+model=
+v=View(model)
 v. display_pre_or_next_month()
 
 #-----------------------------
