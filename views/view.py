@@ -44,3 +44,7 @@ class View:
                 self.display_today_month(month+1)
             if respense == "p":
                 self.display_today_month(month-1)
+    
+    """  User can see all events on a specific date - User can cancel (delete) an event """
+    def display_all_events(self):
+
