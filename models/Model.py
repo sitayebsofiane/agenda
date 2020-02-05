@@ -1,4 +1,4 @@
-from models import Connect
+import psycopg2
 import hashlib
 import calendar
 from getpass import getpass

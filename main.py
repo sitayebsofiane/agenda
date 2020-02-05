@@ -1,9 +1,9 @@
 from views.view import View
-from model.Model import Model
+from models.Model import Model
 
-model=
+model=Model()
 v=View(model)
-v. display_pre_or_next_month()
+v.display_all_events()
 
 #-----------------------------
 """
