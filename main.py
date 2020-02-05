@@ -2,10 +2,10 @@
 
 from views.view import View
 from models.Model import Model
-
+import datetime
 model=Model()
 v=View(model)
-v.display_all_informations_events()
+model.post_event(1,1,'title',datetime.date.today(),'description')
 """
 #-----------------------------
 

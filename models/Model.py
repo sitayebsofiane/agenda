@@ -1,7 +1,6 @@
 import psycopg2
 import hashlib
 import calendar
-from getpass import getpass
 from datetime import datetime
 
 class Model:
@@ -94,6 +93,21 @@ class Model:
       rows=self.curseur.fetchall()
       self.curseur.close()
       return rows
+    
+    """ post one events """ 
+    def post_event(self,id_user,title,date,description):
+        try:
+            self.curseur = self.con.cursor()
+            self.curseur.execute("SELECT id_role FROM user_role WHERE id_user= %s;",(id_user,))
+            id_role = self.curseur.fetchone()[0]
+            self.curseur.execute("""INSERT INTO events(id_user,id_role,title,date,description)
+             VALUES (%s,%s,%s,%s,%s);""",(id_user,id_role,title,date,description))
+            self.con.commit()
+            self.curseur.close()
+            return True
+        except:
+            return False
+
     
 
 
