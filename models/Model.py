@@ -53,6 +53,13 @@ class Model:
             return True
         return False
         
+    """ add new role in table roles """
+    def add_new_role(self,role_name,role_description):
+        self.curseur = self.con.cursor()
+        self.curseur.execute("INSERT INTO roles(role_name,role_description) VALUES (%s,%s);",(role_name,role_description))
+        self.con.commit()
+        self.curseur.close()
+
         
 
 
