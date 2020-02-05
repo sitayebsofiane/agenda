@@ -3,8 +3,6 @@ from views.view import View
 v=View(5,2)
 v. display_pre_or_next_month()
 
-
-
 #-----------------------------
 """
 import hashlib

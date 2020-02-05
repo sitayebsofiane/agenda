@@ -47,4 +47,5 @@ class View:
     
     """  User can see all events on a specific date - User can cancel (delete) an event """
     def display_all_events(self):
+        pass
 
