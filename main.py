@@ -6,7 +6,7 @@ from models.Model import Model
 model=Model()
 v=View(model)
 v.display_all_events()
-#model.add_new_role('USER','le role de la secretaire elle a le droit d''ajouter les rdv ou de suprimer ou modifier sans plus')
+#model.update_user_role(3,"USER")
 """
 #-----------------------------
 

@@ -43,10 +43,10 @@ class Model:
         #i select user by his id and affecte hime role 
         self.curseur = self.con.cursor()
         self.curseur.execute("SELECT id_user FROM user_agenda where id_user= %s;",(id_user,))
-        user=self.curseur.fetchone()
+        id_user=self.curseur.fetchone()
         self.curseur.execute("SELECT id_role FROM roles where role_name= %s;",(role_name,))
         id_role = self.curseur.fetchone()
-        if user is not None and id_role is not None:
+        if id_user is not None and id_role is not None:
             self.curseur.execute("INSERT INTO user_role(id_user,id_role) VALUES (%s,%s);",(id_user,id_role))
             self.con.commit()
             self.curseur.close()
@@ -60,11 +60,25 @@ class Model:
         self.con.commit()
         self.curseur.close()
 
-        
+    """ update role X for user Y """
+    def update_user_role(self,id_user,new_role_name):
+        #i select user by his id and affecte hime role
+        self.curseur = self.con.cursor()
+        self.curseur.execute("SELECT id_user FROM user_agenda WHERE id_user= %s;",(id_user,))
+        id_user=self.curseur.fetchone()
+        self.curseur.execute("SELECT id_role FROM roles WHERE role_name= %s;",(new_role_name,))
+        id_role = self.curseur.fetchone()
+        if id_user is not None and id_role is not None:
+            self.curseur.execute("UPDATE user_role set id_role=%s WHERE id_user=%s;",(id_role,id_user))
+            self.con.commit()
+            self.curseur.close()
+            return True
+        return False
 
 
-    """ get all events """
-    def get_all_events(self):
+
+    """ get all events by big boss """
+    def get_all_events_by_admin(self):
       self.curseur=self.con.cursor()
       self.curseur.execute("""SELECT e.title,e.date,e.description,r.role_name,r.role_description,u.name FROM events AS e JOIN user_agenda AS u
                                 ON u.id_user=e.id_user JOIN roles AS r ON r.id_role=e.id_role;""")

@@ -55,9 +55,10 @@ class View:
     def display_all_events(self):
 
         print(" voici la liste des de tout evenements anisi que le role et le nom des utilisateurs: ")
-        for r in self.model.get_all_events():
+        for r in self.model.get_all_events_by_admin():
             print(View.HEADER + "-----------------------------------------------------------------------------------------" )
-            print(f"titre: {r[0]} | date: {r[1]} | description: {r[2]} | role: {r[3]} | description role: {r[4]} | nom: {r[5]} ")
+            print(f"""titre: {r[0]} | date: {r[1]} | description du role: {r[2]}
+             | role: {r[3]} | description du role: {r[4]} | nom: {r[5]} """)
             print(View.BOLD+ "----------------------------------------------------------------------------------------" )
     
 
