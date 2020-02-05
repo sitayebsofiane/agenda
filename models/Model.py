@@ -77,7 +77,7 @@ class Model:
 
 
 
-    """ get all events by big boss """
+    """ get all events with all informations """
     def get_all_events_by_admin(self):
       self.curseur=self.con.cursor()
       self.curseur.execute("""SELECT e.title,e.date,e.description,r.role_name,r.role_description,u.name FROM events AS e JOIN user_agenda AS u
@@ -85,5 +85,15 @@ class Model:
       rows=self.curseur.fetchall()
       self.curseur.close()
       return rows
+    
+    """ get all events with restreint information """
+    def get_all_events(self):
+      self.curseur=self.con.cursor()
+      self.curseur.execute("""SELECT e.title,e.date,r.role_name,u.name FROM events AS e JOIN user_agenda AS u
+                                ON u.id_user=e.id_user JOIN roles AS r ON r.id_role=e.id_role;""")
+      rows=self.curseur.fetchall()
+      self.curseur.close()
+      return rows
+    
 
 
