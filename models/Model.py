@@ -29,7 +29,21 @@ class Model:
        self.curseur.close()
        return autorised
 
+    """ create count user_agenda """
+    def creation_count_user(self,name,firstname,password):
+        password = password.encode()
+        password = hashlib.sha1(password).hexdigest()
+        self.curseur = self.con.cursor()
+        self.curseur.execute("INSERT INTO user_agenda(name,first_name,password) VALUES (%s,%s,%s);",(name,firstname,password))
+        self.con.commit()
+        self.curseur.close()
 
+    """ add role for user """
+    def add_role_user(self,role,user):
+        pass
+
+
+    """ get all events """
     def get_all_events(self):
       self.curseur=self.con.cursor()
       self.curseur.execute("""SELECT e.title,e.date,e.description,r.role_name,r.role_description,u.name FROM events AS e JOIN user_agenda AS u

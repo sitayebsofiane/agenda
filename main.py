@@ -6,7 +6,7 @@ from models.Model import Model
 model=Model()
 v=View(model)
 v.display_all_events()
-print(model.authentification("harlain","bruno",'bruno'))
+
 """
 #-----------------------------
 
