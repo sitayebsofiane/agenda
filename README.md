@@ -1,4 +1,4 @@
-# Agenda with BDD
+# Agenda with BDD PYTHON
 
 * Spécifications fonctionnelles :
     * La page d'accueil affiche la date du jour et le calendrier du mois en cours
