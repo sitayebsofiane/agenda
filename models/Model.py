@@ -102,15 +102,20 @@ class Model:
       self.curseur.close()
       return rows
     
-    """ post one events """ 
-    def post_event(self,id_user,title,date,description):
+    """ post one event """ 
+    def post_event(self,id_user,id_role,title,date,description):
         try:
             self.curseur = self.con.cursor()
-            self.curseur.execute("SELECT id_role FROM user_role WHERE id_user= %s;",(id_user,))
-            id_role = self.curseur.fetchone()[0]
-            self.curseur.execute("""INSERT INTO events(id_user,id_role,title,date,description)
-             VALUES (%s,%s,%s,%s,%s);""",(id_user,id_role,title,date,description))
-            self.con.commit()
+            self.curseur.execute("SELECT role_name FROM roles WHERE id_role= %s;",(id_role,))
+            role_name = self.curseur.fetchone()[0]
+            print(role_name)
+            if role_name == 'ADMIN':
+                self.curseur.execute("INSERT INTO events(id_user, title, date, description)VALUES (%s,%s,%s,%s);",(id_user,title,date,description))
+                self.con.commit()
+            elif role_name == 'USER':
+                self.curseur.execute("INSERT INTO events(id_user, title, date)VALUES (%s,%s,%s);",(id_user,title,date))
+                self.con.commit()
+
             self.curseur.close()
             return True
         except:
