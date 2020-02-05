@@ -38,9 +38,22 @@ class Model:
         self.con.commit()
         self.curseur.close()
 
-    """ add role for user """
-    def add_role_user(self,role,user):
-        pass
+    """ add role X for user Y """
+    def add_role_user(self,id_user,role_name):
+        #i select user by his id and affecte hime role 
+        self.curseur = self.con.cursor()
+        self.curseur.execute("SELECT id_user FROM user_agenda where id_user= %s;",(id_user,))
+        user=self.curseur.fetchone()
+        self.curseur.execute("SELECT id_role FROM roles where role_name= %s;",(role_name,))
+        id_role = self.curseur.fetchone()
+        if user is not None and id_role is not None:
+            self.curseur.execute("INSERT INTO user_role(id_user,id_role) VALUES (%s,%s);",(id_user,id_role))
+            self.con.commit()
+            self.curseur.close()
+            return True
+        return False
+        
+        
 
 
     """ get all events """

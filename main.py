@@ -6,7 +6,7 @@ from models.Model import Model
 model=Model()
 v=View(model)
 v.display_all_events()
-
+model.add_role_user(1,"ADMIN")
 """
 #-----------------------------
 
