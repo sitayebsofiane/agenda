@@ -31,18 +31,21 @@ class Controller:
 
         auth=self.login()
         if auth[0]:
-            mois = input('mois: ')
-            day = input('jour: ')
-            d1=datetime.datetime(datetime.date.today().year,mois,day,5,52,23)
-            if self.model.role_name(auth[2]) == "ADMIN":
-                new_title=input('nouveau titre: ')
-                new_desc=input('nouvelle description:')
-                title=input('titre: ')
-                self.model.update_events_admin(new_title,d1,new_desc,title)
-            elif self.model.role_name(auth[2] == "USER"):
-                new_title=input('nouveau titre: ')
-                new_desc=input('nouvelle description:')
-                title=input('titre: ')
-                self.model.update_events_user(new_title,d1,title)
+            try:
+                mois = int(input('mois: '))
+                day = int(input('jour: '))
+                d1=datetime.datetime(datetime.date.today().year,mois,day,5,52,0)
+                if self.model.role_name(auth[2]) == "ADMIN":
+                    new_title=input('nouveau titre: ')
+                    new_desc=input('nouvelle description:')
+                    title=input('titre: ')
+                    self.model.update_events_admin(new_title,d1,new_desc,title)
+                elif self.model.role_name(auth[2] == "USER"):
+                    new_title=input('nouveau titre: ')
+                    new_desc=input('nouvelle description:')
+                    title=input('titre: ')
+                    self.model.update_events_user(new_title,d1,title)
+            except ValueError:
+                print('date incorrect !')
 
         
