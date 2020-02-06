@@ -142,8 +142,9 @@ class Model:
             (new_title,date,description,title))
             self.con.commit()
             self.curseur.close()
+            return True
         except(Exception ,psycopg2.Error):
-            print("erreur to update")
+            return False
 
 
     """ event update, this method allows,the user to update just on what came in"""
@@ -154,5 +155,29 @@ class Model:
             (new_title,date,title,id_user))
             self.con.commit()
             self.curseur.close()
+            return True
         except(Exception ,psycopg2.Error):
-            print("erreur to update")
+            return False
+
+    """ delete event by admin """
+    def delete_event_admin(self,title):
+        try:
+            self.curseur = self.con.cursor()
+            self.curseur.execute("DELETE FROM events WHERE title=%s",(title,))
+            self.con.commit()
+            self.curseur.close()
+            return True
+        except(Exception ,psycopg2.Error):
+            return False
+
+
+    """ delete event by user """
+    def delete_event_user(self,title,id_user):
+        try:
+            self.curseur = self.con.cursor()
+            self.curseur.execute("DELETE FROM events  WHERE title=%s AND id_user=%s;",(title,id_user))
+            self.con.commit()
+            self.curseur.close()
+            return True
+        except(Exception ,psycopg2.Error):
+            return False

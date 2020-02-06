@@ -52,10 +52,19 @@ class Controller:
                     new_desc=input('nouvelle description: ')
                     self.model.update_event_admin(new_title,date,new_desc,title)
                 elif self.model.role_name(auth[2]) == "USER":
-                    new_title=input('nouveau titre: ')
-                    title=input('titre: ')
                     self.model.update_event_user(new_title,date,title,auth[1])
             except ValueError:
                 print('date incorrect !')
-
-        
+    """ delete event """
+    def delete_event(self):
+        auth=self.login()
+        #auth tuple of True if autified else False and id_user,id_role
+        if auth[0]:
+            try:
+                title=input('titre: ')
+                if self.model.role_name(auth[2]) == "ADMIN":
+                    self.model.delete_event_admin(title)
+                elif self.model.role_name(auth[2]) == "USER":
+                    self.model.delete_event_user(title,auth[1])
+            except ValueError:
+                print('date incorrect !')
