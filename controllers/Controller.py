@@ -24,3 +24,11 @@ class Controller:
 
         if auth[0]:
             self.model.post_event(auth[1],auth[2],input('title: '),datetime.datetime.today(),input('description: '))
+
+    """ update events user or admin """
+    def update_events(slef):
+
+        auth=self.login()
+
+        if auth[0]:
+            if

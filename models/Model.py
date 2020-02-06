@@ -34,6 +34,13 @@ class Model:
            return autorised,id_user,id_role[0]
        return False,
 
+    """ method qui renvoi le role_name en fonction  de id_role """
+    def role_name(self,id_role):
+        self.curseur = self.con.cursor()
+        self.curseur.execute("SELECT role_name FROM roles WHERE id_role= %s;",(id_role,))
+        role_name = self.curseur.fetchone()[0]
+
+
     """ create count user_agenda """
     def creation_count_user(self,name,firstname,password):
         password = password.encode()
@@ -129,13 +136,14 @@ class Model:
         self.con.commit()
         self.curseur.close()
 
- """ event update, this method allows,the user to update just on what came in"""
+    """ event update, this method allows,the user to update just on what came in"""
     def update_events_admin(self,new_title,date,title):
         self.curseur = self.con.cursor()
         self.curseur.execute("UPDATE events SET title=%s,date=%s WHERE title=%s;",
         (new_title,date,title))
         self.con.commit()
         self.curseur.close()
+
 
         
 
