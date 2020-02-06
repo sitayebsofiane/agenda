@@ -26,9 +26,16 @@ class Controller:
             self.model.post_event(auth[1],auth[2],input('title: '),datetime.datetime.today(),input('description: '))
 
     """ update events user or admin """
-    def update_events(slef):
+    def update_events(self):
 
         auth=self.login()
-
+        print(auth)
         if auth[0]:
-            if
+            if self.model.role_name(auth[2]) == "ADMIN":
+                self.model.update_events_admin(input('nouveau titre: ')
+                ,input('nouvelle date: '),input('nouvelle description:'),input('titre: '))
+            elif self.model.role_name(auth[2] == "USER"):
+                self.model.update_events_user(input('nouveau titre: ')
+                ,input('nouvelle date: '),input('titre: '))
+
+        
