@@ -68,3 +68,6 @@ class Controller:
                     self.model.delete_event_user(title,auth[1])
             except ValueError:
                 print('date incorrect !')
+    def dispatcher(self):
+        self.view.display_today_month()
+        self.view.display_all_informations_events()
