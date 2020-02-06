@@ -70,4 +70,4 @@ class Controller:
                 print('date incorrect !')
     def dispatcher(self):
         self.view.display_today_month()
-        self.view.display_all_informations_events()
+        self.view.display_all_events()

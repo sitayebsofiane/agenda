@@ -7,10 +7,6 @@ class Events:
         self.date=date
         self.description=description
 
-    """ method to return houre """
-    def houre(self,date):
-
-        pass
 
     
     """ description of event """ 
