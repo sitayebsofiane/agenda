@@ -19,30 +19,42 @@ class Controller:
             testing-=1
         return auth
     """ add post after login """
-    def add_event(self):
+    def add_events(self):
 
         auth=self.login()
 
         if auth[0]:
-            self.model.post_event(auth[1],auth[2],input('title: '),datetime.datetime.today(),input('description: '))
+            try:
+                mois = int(input('mois: '))
+                day = int(input('jour: '))
+                new_title=input('titre: ')
+                title=input('titre: ')
+                date=datetime.datetime(datetime.date.today().year,mois,day,5,52,0)
+                if self.model.role_name(auth[2]) == "ADMIN":
+                    description=input('description:')
+                    self.post_event_admin(auth[1],title,date,description):
+                elif self.model.role_name(auth[2] == "USER"):
+                    self.model.post_event_user(auth[0],title,date)
+            except ValueError:
+                print('date incorrect !')
 
     """ update events user or admin """
     def update_events(self):
 
         auth=self.login()
+
         if auth[0]:
             try:
                 mois = int(input('mois: '))
                 day = int(input('jour: '))
-                d1=datetime.datetime(datetime.date.today().year,mois,day,5,52,0)
+                new_title=input('nouveau titre: ')
+                title=input('titre: ')
+                date=datetime.datetime(datetime.date.today().year,mois,day,5,52,0)
                 if self.model.role_name(auth[2]) == "ADMIN":
-                    new_title=input('nouveau titre: ')
                     new_desc=input('nouvelle description:')
-                    title=input('titre: ')
-                    self.model.update_events_admin(new_title,d1,new_desc,title)
+                    self.model.update_events_admin(new_title,date,new_desc,title)
                 elif self.model.role_name(auth[2] == "USER"):
                     new_title=input('nouveau titre: ')
-                    new_desc=input('nouvelle description:')
                     title=input('titre: ')
                     self.model.update_events_user(new_title,d1,title)
             except ValueError:

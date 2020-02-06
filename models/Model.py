@@ -117,21 +117,29 @@ class Model:
             print("erreur while selecting")
 
     
-    """ post one event """ 
-    def post_event(self,id_user,id_role,title,date,description):
+    """ post one event by admin """ 
+    def post_event_admin(self,id_user,title,date,description):
         try:
             self.curseur = self.con.cursor()
-            if self.role_name(id_role) == 'ADMIN':
-                self.curseur.execute("INSERT INTO events(id_user, title, date, description)VALUES (%s,%s,%s,%s);",(id_user,title,date,description))
-                self.con.commit()
-            elif self.role_name(id_role) == 'USER':
-                self.curseur.execute("INSERT INTO events(id_user, title, date)VALUES (%s,%s,%s);",(id_user,title,date))
-                self.con.commit()
-
+            self.curseur.execute("INSERT INTO events(id_user, title, date, description)VALUES (%s,%s,%s,%s);",(id_user,title,date,description))
+            self.con.commit()
             self.curseur.close()
             return True
         except:
             return False
+
+    """ post one event by user """
+    def post_event_user(self,id_user,title,date):
+        try:
+            self.curseur = self.con.cursor()
+            self.curseur.execute("INSERT INTO events(id_user, title, date)VALUES (%s,%s,%s);",(id_user,title,date))
+            self.con.commit()
+            self.curseur.close()
+            return True
+        except:
+            return False
+
+
 
     """ update event ,this method allows to update,
      admin has the right on everything, the user has the right just on what entered """
