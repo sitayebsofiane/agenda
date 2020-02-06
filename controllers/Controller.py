@@ -68,6 +68,12 @@ class Controller:
                     self.model.delete_event_user(title,auth[1])
             except ValueError:
                 print('date incorrect !')
+
+    """ method main of application """
     def dispatcher(self):
         self.view.display_today_month()
         self.view.display_all_events()
+
+        response=input(""" taper: [ 'login' pour se connecter,'add' pour ajouter evenement,
+        'update' pour metter ajour evenement,'delete' pour suprimer evenement ]""")
+

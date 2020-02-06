@@ -105,7 +105,7 @@ class Model:
             self.curseur.close()
             return rows
         except(Exception ,psycopg2.Error):
-            print("erreur while connecting to postgresSQL")
+            print("erreur while  while selecting")
 
     
     """ get all events with restreint information """
