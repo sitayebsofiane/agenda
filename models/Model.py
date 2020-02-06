@@ -108,7 +108,6 @@ class Model:
             self.curseur = self.con.cursor()
             self.curseur.execute("SELECT role_name FROM roles WHERE id_role= %s;",(id_role,))
             role_name = self.curseur.fetchone()[0]
-            print(role_name)
             if role_name == 'ADMIN':
                 self.curseur.execute("INSERT INTO events(id_user, title, date, description)VALUES (%s,%s,%s,%s);",(id_user,title,date,description))
                 self.con.commit()
@@ -120,8 +119,19 @@ class Model:
             return True
         except:
             return False
+
+    """ update event ,this method allows to update,
+     admin has the right on everything, the user has the right just on what entered """
+     def update_events_admin(self,title,date,description):
+        self.curseur = self.con.cursor()
+        self.curseur.execute("UPDATE events SET title=%s,date=%s,description=%s WHERE title=%s;",
+        (title,date,description,title))
+        self.con.commit()
+        self.curseur.close()
+
+
         
-        
+
 
     
 

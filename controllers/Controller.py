@@ -5,7 +5,7 @@ class Controller:
     def __init__(self,model,view):
         self.model = model
         self.view = view
-
+    """ login with role """
     def login(self):
         testing = 3
         auth = self.model.authentification('','','')
@@ -17,9 +17,10 @@ class Controller:
             auth = self.model.authentification(name,first_name,password)
             testing-=1
         return auth
-
+    """ add post after login """
     def add_event(self):
 
         auth=self.login()
+
         if auth[0]:
             self.model.post_event(auth[1],auth[2],input('title: '),datetime.datetime.today(),input('description: '))
