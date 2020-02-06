@@ -7,5 +7,4 @@ model=Model()
 view=View(model)
 controller=Controller(model,view)
 view.display_all_events()
-controller.add_event()
-
+model.update_events_admin('bruno',datetime.datetime.today(),'no thing','mal partout')

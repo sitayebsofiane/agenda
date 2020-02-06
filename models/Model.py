@@ -122,13 +122,20 @@ class Model:
 
     """ update event ,this method allows to update,
      admin has the right on everything, the user has the right just on what entered """
-     def update_events_admin(self,title,date,description):
+    def update_events_admin(self,new_title,date,description,title):
         self.curseur = self.con.cursor()
         self.curseur.execute("UPDATE events SET title=%s,date=%s,description=%s WHERE title=%s;",
-        (title,date,description,title))
+        (new_title,date,description,title))
         self.con.commit()
         self.curseur.close()
 
+ """ event update, this method allows,the user to update just on what came in"""
+    def update_events_admin(self,new_title,date,title):
+        self.curseur = self.con.cursor()
+        self.curseur.execute("UPDATE events SET title=%s,date=%s WHERE title=%s;",
+        (new_title,date,title))
+        self.con.commit()
+        self.curseur.close()
 
         
 
