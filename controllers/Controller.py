@@ -19,7 +19,7 @@ class Controller:
             testing-=1
         return auth
     """ add post after login """
-    def post_events(self):
+    def post_event(self):
         auth=self.login()
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
@@ -30,15 +30,15 @@ class Controller:
                 title=input('titre: ')
                 date=datetime.datetime(datetime.date.today().year,mois,day,5,52,0)
                 if self.model.role_name(auth[2]) == "ADMIN":
-                    description=input('description:')
-                    self.model.post_event_admin(auth[1],title,date,description)
+                    description=input('description: ')
+                    self.model.post_event(auth[1],title,date,description)
                 elif self.model.role_name(auth[2]) == "USER":
-                    self.model.post_event_user(auth[1],title,date)
+                    self.model.post_event(auth[1],title,date,'')
             except ValueError:
                 print('date incorrect !')
 
     """ update events user or admin """
-    def update_events(self):
+    def update_event(self):
         auth=self.login()
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
@@ -49,12 +49,12 @@ class Controller:
                 title=input('titre: ')
                 date=datetime.datetime(datetime.date.today().year,mois,day,5,52,0)
                 if self.model.role_name(auth[2]) == "ADMIN":
-                    new_desc=input('nouvelle description:')
-                    self.model.update_events_admin(new_title,date,new_desc,title)
+                    new_desc=input('nouvelle description: ')
+                    self.model.update_event_admin(new_title,date,new_desc,title)
                 elif self.model.role_name(auth[2]) == "USER":
                     new_title=input('nouveau titre: ')
                     title=input('titre: ')
-                    self.model.update_events_user(new_title,d1,title,auth[1])
+                    self.model.update_event_user(new_title,date,title,auth[1])
             except ValueError:
                 print('date incorrect !')
 

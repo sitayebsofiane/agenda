@@ -123,7 +123,7 @@ class Model:
 
     
     """ post one event by admin """ 
-    def post_event_admin(self,id_user,title,date,description):
+    def post_event(self,id_user,title,date,description):
         try:
             self.curseur = self.con.cursor()
             self.curseur.execute("INSERT INTO events(id_user, title, date, description)VALUES (%s,%s,%s,%s);",(id_user,title,date,description))
@@ -133,22 +133,9 @@ class Model:
         except:
             return False
 
-    """ post one event by user """
-    def post_event_user(self,id_user,title,date):
-        try:
-            self.curseur = self.con.cursor()
-            self.curseur.execute("INSERT INTO events(id_user, title, date)VALUES (%s,%s,%s);",(id_user,title,date))
-            self.con.commit()
-            self.curseur.close()
-            return True
-        except:
-            return False
-
-
-
     """ update event ,this method allows to update,
      admin has the right on everything, the user has the right just on what entered """
-    def update_events_admin(self,new_title,date,description,title):
+    def update_event_admin(self,new_title,date,description,title):
         try:
             self.curseur = self.con.cursor()
             self.curseur.execute("UPDATE events SET title=%s,date=%s,description=%s WHERE title=%s;",
@@ -160,7 +147,7 @@ class Model:
 
 
     """ event update, this method allows,the user to update just on what came in"""
-    def update_events_user(self,new_title,date,title,id_user):
+    def update_event_user(self,new_title,date,title,id_user):
         try:
             self.curseur = self.con.cursor()
             self.curseur.execute("UPDATE events SET title=%s,date=%s WHERE title=%s AND id_user=%s;",
@@ -169,11 +156,3 @@ class Model:
             self.curseur.close()
         except(Exception ,psycopg2.Error):
             print("erreur to update")
-
-
-        
-
-
-    
-
-
