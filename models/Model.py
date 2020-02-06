@@ -55,10 +55,10 @@ class Model:
         self.curseur.close()
 
     """ add role X for user Y """
-    def add_role_user(self,id_user,role_name):
+    def add_role_user(self,name,first_name,role_name):
         #i select user by his id and affecte hime role 
         self.curseur = self.con.cursor()
-        self.curseur.execute("SELECT id_user FROM user_agenda where id_user= %s;",(id_user,))
+        self.curseur.execute("SELECT id_user FROM user_agenda where name= %s AND first_name= %s;",(name,first_name))
         id_user=self.curseur.fetchone()
         self.curseur.execute("SELECT id_role FROM roles where role_name= %s;",(role_name,))
         id_role = self.curseur.fetchone()
@@ -95,13 +95,18 @@ class Model:
 
     """ get all events with all informations """
     def get_all_events_by_admin(self):
-      self.curseur=self.con.cursor()
-      self.curseur.execute("""SELECT e.title,e.date,e.description,r.role_name,r.role_description,u.name FROM events AS e JOIN user_agenda AS u
-                                ON u.id_user=e.id_user JOIN user_role AS ur ON ur.id_user=u.id_user JOIN
-								roles AS r ON ur.id_role=r.id_role;""")
-      rows=self.curseur.fetchall()
-      self.curseur.close()
-      return rows
+        try:
+            self.curseur=self.con.cursor()
+            self.curseur.execute("""SELECT e.title,e.date,e.description,r.role_name,r.role_description,u.name,u.first_name
+                                    FROM events AS e JOIN user_agenda AS u
+                                    ON u.id_user=e.id_user JOIN user_role AS ur ON ur.id_user=u.id_user JOIN
+                                    roles AS r ON ur.id_role=r.id_role;""")
+            rows=self.curseur.fetchall()
+            self.curseur.close()
+            return rows
+        except(Exception ,psycopg2.Error):
+            print("erreur while connecting to postgresSQL")
+
     
     """ get all events with restreint information """
     def get_all_events_by_user(self):
@@ -155,11 +160,11 @@ class Model:
 
 
     """ event update, this method allows,the user to update just on what came in"""
-    def update_events_user(self,new_title,date,title):
+    def update_events_user(self,new_title,date,title,id_user):
         try:
             self.curseur = self.con.cursor()
-            self.curseur.execute("UPDATE events SET title=%s,date=%s WHERE title=%s;",
-            (new_title,date,title))
+            self.curseur.execute("UPDATE events SET title=%s,date=%s WHERE title=%s AND id_user=%s;",
+            (new_title,date,title,id_user))
             self.con.commit()
             self.curseur.close()
         except(Exception ,psycopg2.Error):

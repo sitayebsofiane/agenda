@@ -19,7 +19,7 @@ class Controller:
             testing-=1
         return auth
     """ add post after login """
-    def add_events(self):
+    def post_events(self):
 
         auth=self.login()
 
@@ -27,12 +27,11 @@ class Controller:
             try:
                 mois = int(input('mois: '))
                 day = int(input('jour: '))
-                new_title=input('titre: ')
                 title=input('titre: ')
                 date=datetime.datetime(datetime.date.today().year,mois,day,5,52,0)
                 if self.model.role_name(auth[2]) == "ADMIN":
                     description=input('description:')
-                    self.post_event_admin(auth[1],title,date,description):
+                    self.model.post_event_admin(auth[1],title,date,description)
                 elif self.model.role_name(auth[2] == "USER"):
                     self.model.post_event_user(auth[0],title,date)
             except ValueError:
@@ -56,7 +55,7 @@ class Controller:
                 elif self.model.role_name(auth[2] == "USER"):
                     new_title=input('nouveau titre: ')
                     title=input('titre: ')
-                    self.model.update_events_user(new_title,d1,title)
+                    self.model.update_events_user(new_title,d1,title,auth[1])
             except ValueError:
                 print('date incorrect !')
 
