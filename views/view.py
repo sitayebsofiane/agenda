@@ -2,6 +2,9 @@
 import calendar
 import datetime
 import time
+from views.entities.Events import *
+from views.entities.User import *
+from views.entities.Role import *
 
 class View:
     HEADER = '\033[95m'
@@ -52,13 +55,16 @@ class View:
                 self.display_today_month(month-1)
     
     """  Admin can see all events on a specific date - Admin can cancel (delete) an event """
-    def display_all_informations_events(self):
+    def display_all_events_wize_info(self):
 
         print(" voici la liste des de tout evenements anisi que le role et le nom des utilisateurs: ")
-        for r in self.model.get_all_events_by_admin():
+        for dicto in self.model.get_all_events_by_admin():
             print(View. OKBLUE + "-----------------------------------------------------------------------------------------" )
-            print(f"""titre: {r[0]} | date: {r[1]} | description du evenment: {r[2]}
-             | role: {r[3]} | description du role: {r[4]} | nom: {r[5]} """)
+            events = Events(dicto)
+            role = Role(dicto)
+            user = User(dicto)
+            print(events,role,user)
+
             print(View.BOLD+ "----------------------------------------------------------------------------------------" )
 
     """  User can see all events on a specific date - User can cancel (delete) an event """      

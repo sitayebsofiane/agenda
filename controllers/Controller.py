@@ -19,8 +19,7 @@ class Controller:
             testing-=1
         return auth
     """ add post after login """
-    def post_event(self):
-        auth=self.login()
+    def post_event(self,auth):
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
             print (self.model.role_name(auth[2]))
@@ -38,8 +37,7 @@ class Controller:
                 print('date incorrect !')
 
     """ update events user or admin """
-    def update_event(self):
-        auth=self.login()
+    def update_event(self,auth):
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
             try:
@@ -56,8 +54,7 @@ class Controller:
             except ValueError:
                 print('date incorrect !')
     """ delete event """
-    def delete_event(self):
-        auth=self.login()
+    def delete_event(self,auth):
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
             try:
@@ -71,21 +68,44 @@ class Controller:
 
     """ answer """
     def menu(self):
-        response=input(""" taper: [ add' pour ajouter evenement,
+        choose=input(""" taper: [ 'display' pour afficher ,add' pour ajouter evenement,
         'update' pour metter ajour evenement,'delete' pour suprimer evenement ,
-         'create' pour creation du compte 
+         'create' pour creation du compte ,'addroleuser' pour ajouter un role
          
          ]: """)
-        return chose
+        return choose
 
     """ method main of application """
     def dispatcher(self):
         self.view.display_today_month()
         auth=self.login()
         if auth[0]:
+            choose = self.menu()
+            if choose == 'add':
+                self.post_event(auth)
+            if choose == 'update':
+                self.update_event(auth)
+            if choose == 'delete':
+                self.delete_event(auth)
+            if choose == 'display':
+                if self.model.role_name(auth[2])== 'ADMIN':
+                    self.view. display_all_events_wize_info()
+                if self.model.role_name(auth[2])== 'USER':
+                    self.view. display_all_events()
 
-            chose = self.menu()
-            if
+            if choose == 'create' and self.model.role_name(auth[2])== 'ADMIN':
+                if self.model.creation_count_user(input('name: '),input('firstname'),input('password')):
+                    print('count creer')
+                else:
+                    print('erreur')
+                    
+            if choose == 'addroleuser' and self.model.role_name(auth[2])== 'ADMIN':
+                if self.add_role_user(input('name: '),input('firstname: '),input('role: ')):
+                    print('role ajouter')
+                else:
+                    print('pas bien passer')
+
+
             
 
 

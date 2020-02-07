@@ -46,12 +46,16 @@ class Model:
 
     """ create count user_agenda """
     def creation_count_user(self,name,firstname,password):
-        password = password.encode()
-        password = hashlib.sha1(password).hexdigest()
-        self.curseur = self.con.cursor()
-        self.curseur.execute("INSERT INTO user_agenda(name,first_name,password) VALUES (%s,%s,%s);",(name,firstname,password))
-        self.con.commit()
-        self.curseur.close()
+        try:
+            password = password.encode()
+            password = hashlib.sha1(password).hexdigest()
+            self.curseur = self.con.cursor()
+            self.curseur.execute("INSERT INTO user_agenda(name,first_name,password) VALUES (%s,%s,%s);",(name,firstname,password))
+            self.con.commit()
+            self.curseur.close()
+            return True
+        except(Exception ,psycopg2.Error):
+            return False
 
     """ add role X for user Y """
     def add_role_user(self,name,first_name,role_name):
@@ -102,7 +106,11 @@ class Model:
                                     roles AS r ON ur.id_role=r.id_role;""")
             rows=self.curseur.fetchall()
             self.curseur.close()
-            return rows
+            liste = list()
+            for row in rows:
+                liste.append({'title':row[0],'date': row[1], 'description':row[2],'role':row[3], 'role_description': row[4]
+                ,'name':row[5],'firstName': row[6]})
+            return liste
         except(Exception ,psycopg2.Error):
             print("erreur while  while selecting")
 
