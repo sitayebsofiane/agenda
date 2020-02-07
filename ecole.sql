@@ -20,75 +20,8 @@ SET row_security = off;
 -- Name: emira(text, text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
-CREATE FUNCTION public.emira(e text, p text) RETURNS boolean
-    LANGUAGE plpgsql
-    AS $$
-declare 
-	em text;
-	pa text;
-BEGIN
-   select email into em from users where email=e and password=p;
-   select password into pa from users where email=e and password=p;
-   if (em not in ('') and pa not in ('')) then
-   	return TRUE;
-   else
-   	return FALSE;
-   end if;
-END;
-$$;
 
 
-ALTER FUNCTION public.emira(e text, p text) OWNER TO postgres;
-
---
--- Name: fibo(integer); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION public.fibo(n integer) RETURNS integer
-    LANGUAGE plpgsql
-    AS $$
-declare compteur integer := 0;
-i integer := 0;
-j integer := 1;
-begin 
-if(n<1) then
-return 0;
-end if;
-loop
-exit when compteur =n;
-compteur =compteur +1;
-select j,i+j into i,j;
-end loop;
-return i;
-end;
-$$;
-
-
-ALTER FUNCTION public.fibo(n integer) OWNER TO postgres;
-
---
--- Name: somme_n_produits(integer, integer); Type: FUNCTION; Schema: public; Owner: postgres
---
-
-CREATE FUNCTION public.somme_n_produits(x integer, y integer, OUT somme integer, OUT produit integer) RETURNS record
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-    somme := x + y;
-    produit := x * y;
-END;
-$$;
-
-
-ALTER FUNCTION public.somme_n_produits(x integer, y integer, OUT somme integer, OUT produit integer) OWNER TO postgres;
-
-SET default_tablespace = '';
-
-SET default_table_access_method = heap;
-
---
--- Name: events; Type: TABLE; Schema: public; Owner: postgres
---
 
 CREATE TABLE public.events (
     id_event integer NOT NULL,
@@ -123,59 +56,17 @@ ALTER TABLE public.events_id_event_seq OWNER TO postgres;
 ALTER SEQUENCE public.events_id_event_seq OWNED BY public.events.id_event;
 
 
---
--- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: sofiane
---
-
-CREATE SEQUENCE public.hibernate_sequence
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
 
 
-ALTER TABLE public.hibernate_sequence OWNER TO sofiane;
-
---
--- Name: messages; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.messages (
-    id integer NOT NULL,
-    date_publication date,
-    contenu text,
-    id_auteur integer
-);
 
 
-ALTER TABLE public.messages OWNER TO postgres;
-
---
--- Name: messages_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.messages_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
 
 
-ALTER TABLE public.messages_id_seq OWNER TO postgres;
-
---
--- Name: messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.messages_id_seq OWNED BY public.messages.id;
 
 
---
--- Name: roles; Type: TABLE; Schema: public; Owner: postgres
---
+
+
+
 
 CREATE TABLE public.roles (
     id_role integer NOT NULL,
@@ -369,22 +260,7 @@ COPY public.events (id_event, id_user, title, date, description) FROM stdin;
 11	8	farid	2020-01-01 05:52:00	farid
 17	7	thomas	2020-01-01 05:52:00	
 16	8	boxe	2020-05-05 05:52:00	ko
-\.
 
-
---
--- Data for Name: messages; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.messages (id, date_publication, contenu, id_auteur) FROM stdin;
-13	2020-01-16	salam alikoum bruno	20
-15	2020-01-17	salam alykoum hhjjkk	19
-16	2020-01-17	salam el hadj	19
-17	2020-01-17	formation python	21
-14	2020-01-16	wa alikoum salam la reine de sql	19
-18	2020-02-03	qu'est ce que ça peut te foutre	20
-19	2020-02-04	l	19
-\.
 
 
 --
