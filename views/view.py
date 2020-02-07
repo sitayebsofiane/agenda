@@ -18,6 +18,10 @@ class View:
 
     def __init__(self,model):
         self.model=model
+    """method for decorate display"""
+    def decorate(self,func):
+        print(View. OKBLUE + "-----------------------------------------------------------------------------------------" )
+        return func
 
 
     """  The home page displays today's date and calendar for the current month """
@@ -65,14 +69,17 @@ class View:
             user = User(dicto)
             print(events,role,user)
 
-            print(View.BOLD+ "----------------------------------------------------------------------------------------" )
+            print(View.BOLD+ "---------------------------------------------------------------------------------------------------" )
 
     """  User can see all events on a specific date - User can cancel (delete) an event """      
     def display_all_events(self):
 
         print(" voici la liste des de tout evenements : ")
-        for r in self.model.get_all_events_by_user():
+        for dicto in self.model.get_all_events_by_user():
             print(View. OKBLUE + "-----------------------------------------------------------------------------------------" )
-            print(f"""titre: {r[0]} | date: {r[1]} | role: {r[2]} | name: {r[3]} """)
-            print(View.BOLD+ "--------------------------------------------------------------------------------------")
+            events = Events(dicto)
+            role = Role(dicto)
+            user = User(dicto)
+            print(events,role,user)
 
+            print(View.BOLD+ "---------------------------------------------------------------------------------------------------" )

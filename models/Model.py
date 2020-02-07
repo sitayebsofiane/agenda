@@ -124,7 +124,10 @@ class Model:
                                         roles AS r ON ur.id_role=r.id_role;""")
             rows=self.curseur.fetchall()
             self.curseur.close()
-            return rows
+            liste = list()
+            for row in rows:
+                liste.append({'title':row[0],'date': row[1],'role':row[2],'name':row[3]})
+            return liste
         except(Exception ,psycopg2.Error):
             print("erreur while selecting")
 
