@@ -6,13 +6,12 @@ from datetime import datetime
 class Model:
 
     """ connect to bdd in postgreSQL """
-    def __init__(self,bdd="ecole",user="postgres",password="as122014",host="localhost",port="5432"):
+    def __init__(self,bdd,user,password,host,port):
         try:
             self.con=psycopg2.connect(database=bdd,user=user,password=password,host=host,port=port)
             self.curseur=None
         except(Exception ,psycopg2.Error):
             print("erreur while connecting to postgresSQL")
-
 
     """ if user has authentificat this method return id_user and id_role """
     def authentification(self,name,first_name,password):

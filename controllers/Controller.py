@@ -69,11 +69,24 @@ class Controller:
             except ValueError:
                 print('date incorrect !')
 
+    """ answer """
+    def menu(self):
+        response=input(""" taper: [ add' pour ajouter evenement,
+        'update' pour metter ajour evenement,'delete' pour suprimer evenement ,
+         'create' pour creation du compte 
+         
+         ]: """)
+        return chose
+
     """ method main of application """
     def dispatcher(self):
         self.view.display_today_month()
-        self.view.display_all_events()
+        auth=self.login()
+        if auth[0]:
 
-        response=input(""" taper: [ 'login' pour se connecter,'add' pour ajouter evenement,
-        'update' pour metter ajour evenement,'delete' pour suprimer evenement ]""")
+            chose = self.menu()
+            if
+            
+
+
 
