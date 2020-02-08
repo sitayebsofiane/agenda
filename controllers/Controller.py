@@ -80,7 +80,7 @@ class Controller:
         self.view.display_today_month()
         self.view.display_pre_or_next_month()
         auth=self.login()
-        while auth[0] and input('voulez vous quiter').lower() !='q':
+        while auth[0] and input("taper q pour quiter , ENTER si vous voulez continuer: ").lower() != 'q':
             choose = self.menu()
 
             if choose == 'add':
