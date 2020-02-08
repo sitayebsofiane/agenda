@@ -78,20 +78,23 @@ class Controller:
     """ method main of application """
     def dispatcher(self):
         self.view.display_today_month()
+        self.view.display_pre_or_next_month()
         auth=self.login()
-        if auth[0]:
+        while auth[0] and input('voulez vous quiter').lower() !='q':
             choose = self.menu()
+
             if choose == 'add':
                 self.post_event(auth)
+
             if choose == 'update':
                 self.update_event(auth)
+
             if choose == 'delete':
                 self.delete_event(auth)
+
             if choose == 'display':
-                if self.model.role_name(auth[2])== 'ADMIN':
-                    self.view. display_all_events_wize_info()
-                if self.model.role_name(auth[2])== 'USER':
-                    self.view. display_all_events()
+                a=self.model.role_name(auth[2])
+                self.view.display(a)
 
             if choose == 'create' and self.model.role_name(auth[2])== 'ADMIN':
                 if self.model.creation_count_user(input('name: '),input('firstname'),input('password')):
