@@ -22,7 +22,7 @@ class Controller:
     def post_event(self,auth):
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
-            print (self.model.role_name(auth[2]))
+            print ('vous êtes: ',self.model.role_name(auth[2]),' si vous êtes USER vous avez des droit restreit ')
             try:
                 mois = int(input('mois: '))
                 day = int(input('jour: '))
@@ -40,6 +40,7 @@ class Controller:
     def update_event(self,auth):
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
+            print ('vous êtes: ',self.model.role_name(auth[2]),' si vous êtes USER vous avez des droit restreit ')
             try:
                 mois = int(input('mois: '))
                 day = int(input('jour: '))
@@ -57,6 +58,7 @@ class Controller:
     def delete_event(self,auth):
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
+            print ('vous êtes: ',self.model.role_name(auth[2]),' si vous êtes USER vous avez des droit restreit ')
             try:
                 title=input('titre: ')
                 if self.model.role_name(auth[2]) == "ADMIN":
