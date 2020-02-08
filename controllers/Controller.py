@@ -5,6 +5,15 @@ class Controller:
     def __init__(self,model,view):
         self.model = model
         self.view = view
+    """ method to check if events is abble """
+    def check_date(self):
+        minute = int(input('nouvelle minute: '))
+        houre = int(input('nouvelle houre: '))
+        month = int(input('nouveu mois: '))
+        day = int(input('nouveu jour: '))
+        date_enter = datetime.datetime(datetime.date.today().year,month,day,houre,minute,0)
+        return date_enter
+
 
     """ login with role """
     def login(self):
@@ -22,12 +31,10 @@ class Controller:
     def post_event(self,auth):
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
-            print ('vous êtes: ',self.model.role_name(auth[2]),' si vous êtes USER vous avez des droit restreit ')
+            print ('vous êtes: ',self.model.role_name(auth[2]),' si vous êtes USER vous avez des droit restreint ')
             try:
-                mois = int(input('mois: '))
-                day = int(input('jour: '))
-                title=input('titre: ')
-                date=datetime.datetime(datetime.date.today().year,mois,day,5,52,0)
+                title = input('ancien titre: ')
+                date = self.check_date()
                 if self.model.role_name(auth[2]) == "ADMIN":
                     description=input('description: ')
                     self.model.post_event(auth[1],title,date,description)
@@ -40,27 +47,26 @@ class Controller:
     def update_event(self,auth):
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
-            print ('vous êtes: ',self.model.role_name(auth[2]),' si vous êtes USER vous avez des droit restreit ')
+            print ('vous êtes: ',self.model.role_name(auth[2]),' si vous êtes USER vous avez des droit restreint ')
             try:
-                mois = int(input('mois: '))
-                day = int(input('jour: '))
-                new_title=input('nouveau titre: ')
-                title=input('titre: ')
-                date=datetime.datetime(datetime.date.today().year,mois,day,5,52,0)
+                title = input('ancien titre: ')
+                date = self.check_date()
+                new_title = input('nouveau titre: ')
                 if self.model.role_name(auth[2]) == "ADMIN":
-                    new_desc=input('nouvelle description: ')
+                    new_desc = input('nouvelle description: ')
                     self.model.update_event_admin(new_title,date,new_desc,title)
                 elif self.model.role_name(auth[2]) == "USER":
                     self.model.update_event_user(new_title,date,title,auth[1])
             except ValueError:
                 print('date incorrect !')
+
     """ delete event """
     def delete_event(self,auth):
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
-            print ('vous êtes: ',self.model.role_name(auth[2]),' si vous êtes USER vous avez des droit restreit ')
+            print ('vous êtes: ',self.model.role_name(auth[2]),' si vous êtes USER vous avez des droit restreint ')
             try:
-                title=input('titre: ')
+                title=input('titre de ce que vous voulez supprimer: ')
                 if self.model.role_name(auth[2]) == "ADMIN":
                     self.model.delete_event_admin(title)
                 elif self.model.role_name(auth[2]) == "USER":
