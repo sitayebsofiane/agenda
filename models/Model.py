@@ -32,7 +32,7 @@ class Model:
        if id_role is not None:
            return autorised,id_user,id_role[0]
        return False,
-
+    #----------------------------------------------------------------------------------------------------------------
     """ method which returns the role_name according to id_role """
     def role_name(self,id_role):
         try:
@@ -43,7 +43,18 @@ class Model:
             return role_name
         except(Exception ,psycopg2.Error):
             print("role has not exist")
+    """ method to return liste of all date """
+    def date_of_events(self):
+        try:
+            self.curseur = self.con.cursor()
+            self.curseur.execute("SELECT date FROM user_agenda;")
+            rows= self.curseur.fetchall()
+            self.curseur.close()
+            return rows
+        except(Exception ,psycopg2.Error):
+            print("role has not exist")
 
+    #----------------------------------------------------------------------------------------------------------------
     """ create count user_agenda """
     def creation_count_user(self,name,firstname,password):
         try:

@@ -5,6 +5,7 @@ class Controller:
     def __init__(self,model,view):
         self.model = model
         self.view = view
+        
     """ method to check if events is abble """
     def check_date(self):
         minute = int(input('nouvelle minute: '))
@@ -31,7 +32,7 @@ class Controller:
     def post_event(self,auth):
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
-            print ('vous êtes: ',self.model.role_name(auth[2]),' si vous êtes USER vous avez des droit restreint ')
+            print ('vous êtes: ',self.model.role_name(auth[2]),'si vous êtes USER vous avez des droit restreint ')
             try:
                 title = input('ancien titre: ')
                 date = self.check_date()
@@ -47,7 +48,7 @@ class Controller:
     def update_event(self,auth):
         #auth tuple of True if autified else False and id_user,id_role
         if auth[0]:
-            print ('vous êtes: ',self.model.role_name(auth[2]),' si vous êtes USER vous avez des droit restreint ')
+            print ('vous êtes: ',self.model.role_name(auth[2]),'si vous êtes USER vous avez des droit restreint ')
             try:
                 title = input('ancien titre: ')
                 date = self.check_date()
