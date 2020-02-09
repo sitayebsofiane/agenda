@@ -34,15 +34,19 @@ class Controller:
 
     """ login with role """
     def login(self):
-        testing = 3
+        tentative = 3
         auth = self.model.authentification('','','')
-        while not auth[0] and testing>0:
+        while not auth[0] and tentative>0:
             name = input("entrez votre nom: ")
             first_name = input("entrez votre prenom: ")
             password = getpass("entrez votre mot de passe: ")
             #auth tuple of True if autified else False and id_user,id_role
             auth = self.model.authentification(name,first_name,password)
-            testing-=1
+            tentative-=1
+            if not auth[0]:
+                 print('il reste',tentative,'tentatives')
+        if tentative == 0:
+            print("wach tu connais pas ton mot de passe :)")
         return auth
 
     """ add post after login """
