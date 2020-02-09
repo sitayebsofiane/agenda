@@ -43,16 +43,17 @@ class Model:
             return role_name
         except(Exception ,psycopg2.Error):
             print("role has not exist")
+
     """ method to return liste of all date """
     def date_of_events(self):
         try:
             self.curseur = self.con.cursor()
-            self.curseur.execute("SELECT date FROM user_agenda;")
+            self.curseur.execute("SELECT date FROM events;")
             rows= self.curseur.fetchall()
             self.curseur.close()
             return rows
         except(Exception ,psycopg2.Error):
-            print("role has not exist")
+            print("event has not exist")
 
     #----------------------------------------------------------------------------------------------------------------
     """ create count user_agenda """
@@ -104,8 +105,6 @@ class Model:
             self.curseur.close()
             return True
         return False
-
-
 
     """ get all events with all informations """
     def get_all_events_by_admin(self):

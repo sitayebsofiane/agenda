@@ -5,14 +5,18 @@ class Controller:
     def __init__(self,model,view):
         self.model = model
         self.view = view
-        
+
     """ method to check if events is abble """
     def check_date(self):
+
         minute = int(input('nouvelle minute: '))
         houre = int(input('nouvelle houre: '))
         month = int(input('nouveu mois: '))
         day = int(input('nouveu jour: '))
         date_enter = datetime.datetime(datetime.date.today().year,month,day,houre,minute,0)
+        for date in self.model.date_of_events():
+            if date_enter == date:
+                return None
         return date_enter
 
 
@@ -34,7 +38,7 @@ class Controller:
         if auth[0]:
             print ('vous êtes: ',self.model.role_name(auth[2]),'si vous êtes USER vous avez des droit restreint ')
             try:
-                title = input('ancien titre: ')
+                title = input('nouveau titre: ')
                 date = self.check_date()
                 if self.model.role_name(auth[2]) == "ADMIN":
                     description=input('description: ')
@@ -86,10 +90,10 @@ class Controller:
 
     """ method main of application """
     def dispatcher(self):
-        self.view.display_today_month()
-        self.view.display_pre_or_next_month()
         auth=self.login()
         while auth[0] and input("taper q pour quiter , ENTER si vous voulez continuer: ").lower() != 'q':
+            self.view.display_today_month()
+            self.view.display_pre_or_next_month()
             choose = self.menu()
 
             if choose == 'add':
