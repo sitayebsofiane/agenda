@@ -21,7 +21,7 @@ class Controller:
             date_enter.month == row[1].month and date_enter.hour == row[1].hour and date_enter.second == 0
             and abs(date_enter.minute+15-row[1].minute) <= 30-row[1].minute)
             # row[1].minute-15 <= date_enter.minute and date_enter.minute <= row[1].minute+15 is:
-            #  date_enter.minute-15 <= 30-2*row[1].minute
+            #   abs(date_enter.minute+15-row[1].minute) <= 30-row[1].minute
             if  check_date:
                 print('date existe en base choisir un autre ! ')
                 return False,
