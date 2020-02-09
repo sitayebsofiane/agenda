@@ -19,7 +19,9 @@ class Controller:
             #I check if at a distance of 15 minutes there is no meeting return false if is in this case
             check_date = (date_enter.year == row[1].year and 
             date_enter.month == row[1].month and date_enter.hour == row[1].hour and date_enter.second == 0
-            and row[1].minute-15 <= date_enter.minute and date_enter.minute <= row[1].minute+15)
+            and date_enter.minute-15 <= 30-2*row[1].minute)
+            # row[1].minute-15 <= date_enter.minute and date_enter.minute <= row[1].minute+15 is:
+            #  date_enter.minute-15 <= 30-2*row[1].minute
             if  check_date:
                 print('date existe en base choisir un autre ! ')
                 return False,
