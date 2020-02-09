@@ -54,7 +54,7 @@ class View:
                 self.display_today_month(month-1)
     
     """  Admin can see all events on a specific date - Admin can cancel (delete) an event """
-    @deco
+   
     def display(self,user_or_admin):
         liste_of_dicto=list()
         if user_or_admin == 'ADMIN':
