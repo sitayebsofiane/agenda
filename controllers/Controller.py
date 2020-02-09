@@ -6,7 +6,7 @@ class Controller:
         self.model = model
         self.view = view
 
-    """ method to check if events is abble """
+    """ method to check if events is able """
     def check_title_date(self):
         title = input('titre: ')
         minute = int(input('nouvelle minute: '))
@@ -14,8 +14,11 @@ class Controller:
         month = int(input('nouveu mois: '))
         day = int(input('nouveu jour: '))
         date_enter = datetime.datetime(datetime.date.today().year,month,day,houre,minute,0)
-       
-        return title,date_enter
+        for row in self.model.title_date_of_events():
+            if title == row[0] or date_enter == row[1]:
+                print(' date ou titre existe en base !')
+                return False,
+        return True,title,date_enter
 
 
     """ login with role """
@@ -33,36 +36,36 @@ class Controller:
 
     """ add post after login """
     def post_event(self,auth):
-        #auth tuple of True if autified else False and id_user,id_role
-        if auth[0]:
+            #auth tuple of True if autified else False and id_user,id_role
             print ('vous êtes: ',self.model.role_name(auth[2]),'si vous êtes USER vous avez des droit restreint ')
             try:
                 check = self.check_title_date()
-                title = check[0]
-                date = check[1]
-                if self.model.role_name(auth[2]) == "ADMIN":
-                    description=input('description: ')
-                    self.model.post_event(auth[1],title,date,description)
-                elif self.model.role_name(auth[2]) == "USER":
-                    self.model.post_event(auth[1],title,date,'')
+                if check[0]:
+                    title = check[1]
+                    date = check[2]
+                    if self.model.role_name(auth[2]) == "ADMIN":
+                        description=input('description: ')
+                        self.model.post_event(auth[1],title,date,description)
+                    elif self.model.role_name(auth[2]) == "USER":
+                        self.model.post_event(auth[1],title,date,'')
             except ValueError:
                 print('date incorrect !')
 
     """ update events user or admin """
     def update_event(self,auth):
-        #auth tuple of True if autified else False and id_user,id_role
-        if auth[0]:
+            #auth tuple of True if autified else False and id_user,id_role
             print ('vous êtes: ',self.model.role_name(auth[2]),'si vous êtes USER vous avez des droit restreint ')
             try:
                 check = self.check_title_date()
-                title = check[0]
-                date = check[1]
-                new_title = input('nouveau titre: ')
-                if self.model.role_name(auth[2]) == "ADMIN":
-                    new_desc = input('nouvelle description: ')
-                    self.model.update_event_admin(new_title,date,new_desc,title)
-                elif self.model.role_name(auth[2]) == "USER":
-                    self.model.update_event_user(new_title,date,title,auth[1])
+                if(check[0]):
+                    title = check[1]
+                    date = check[2]
+                    new_title = input('nouveau titre: ')
+                    if self.model.role_name(auth[2]) == "ADMIN":
+                        new_desc = input('nouvelle description: ')
+                        self.model.update_event_admin(new_title,date,new_desc,title)
+                    elif self.model.role_name(auth[2]) == "USER":
+                        self.model.update_event_user(new_title,date,title,auth[1])
             except ValueError:
                 print('date incorrect !')
 

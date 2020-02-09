@@ -45,10 +45,10 @@ class Model:
             print("role has not exist")
 
     """ method to return liste of all date """
-    def date_of_events(self):
+    def title_date_of_events(self):
         try:
             self.curseur = self.con.cursor()
-            self.curseur.execute("SELECT date FROM events;")
+            self.curseur.execute("SELECT title,date FROM events;")
             rows= self.curseur.fetchall()
             self.curseur.close()
             return rows
