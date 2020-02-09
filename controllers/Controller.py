@@ -14,10 +14,8 @@ class Controller:
         month = int(input('nouveu mois: '))
         day = int(input('nouveu jour: '))
         date_enter = datetime.datetime(datetime.date.today().year,month,day,houre,minute,0)
-        for date in self.model.date_of_events():
-            if date_enter == date:
-                return None,title
-        return date_enter,title
+       
+        return title,date_enter
 
 
     """ login with role """
@@ -32,6 +30,7 @@ class Controller:
             auth = self.model.authentification(name,first_name,password)
             testing-=1
         return auth
+
     """ add post after login """
     def post_event(self,auth):
         #auth tuple of True if autified else False and id_user,id_role
