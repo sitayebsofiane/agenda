@@ -18,11 +18,6 @@ class View:
 
     def __init__(self,model):
         self.model=model
-    """method for decorate display"""
-    @staticmethod
-    def decorate(f):
-        print("********************************************************************")
-        return f
 
 
     """  The home page displays today's date and calendar for the current month """
@@ -59,7 +54,7 @@ class View:
                 self.display_today_month(month-1)
     
     """  Admin can see all events on a specific date - Admin can cancel (delete) an event """
-    #@decorate
+    @deco
     def display(self,user_or_admin):
         liste_of_dicto=list()
         if user_or_admin == 'ADMIN':
