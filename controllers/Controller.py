@@ -7,8 +7,8 @@ class Controller:
         self.view = view
 
     """ method to check if events is abble """
-    def check_date(self):
-
+    def check_title_date(self):
+        title = input('titre: ')
         minute = int(input('nouvelle minute: '))
         houre = int(input('nouvelle houre: '))
         month = int(input('nouveu mois: '))
@@ -16,8 +16,8 @@ class Controller:
         date_enter = datetime.datetime(datetime.date.today().year,month,day,houre,minute,0)
         for date in self.model.date_of_events():
             if date_enter == date:
-                return None
-        return date_enter
+                return None,title
+        return date_enter,title
 
 
     """ login with role """
@@ -38,8 +38,9 @@ class Controller:
         if auth[0]:
             print ('vous êtes: ',self.model.role_name(auth[2]),'si vous êtes USER vous avez des droit restreint ')
             try:
-                title = input('nouveau titre: ')
-                date = self.check_date()
+                check = self.check_title_date()
+                title = check[0]
+                date = check[1]
                 if self.model.role_name(auth[2]) == "ADMIN":
                     description=input('description: ')
                     self.model.post_event(auth[1],title,date,description)
@@ -54,8 +55,9 @@ class Controller:
         if auth[0]:
             print ('vous êtes: ',self.model.role_name(auth[2]),'si vous êtes USER vous avez des droit restreint ')
             try:
-                title = input('ancien titre: ')
-                date = self.check_date()
+                check = self.check_title_date()
+                title = check[0]
+                date = check[1]
                 new_title = input('nouveau titre: ')
                 if self.model.role_name(auth[2]) == "ADMIN":
                     new_desc = input('nouvelle description: ')
