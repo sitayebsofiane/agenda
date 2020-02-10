@@ -38,7 +38,7 @@ class View:
             jour = "Le Samedi"
         if jour == "Sunday":
             jour = "Le Dimanche"
-        print(time.strftime("on est "+jour+" %d /%m /%Y elle est  %H :%I :%S"))
+        print(time.strftime("on est "+jour+" %d /%m /%Y elle est  %H :%M :%S"))
         print()
         # calendar of month
         print(calendar.month(year, month))
